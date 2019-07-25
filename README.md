@@ -1,5 +1,5 @@
 # seperator
-Description: Python script to parse an xml file and move its values to selected tables in a datawarehouse
+Description: Python script to parse an xml file which retrieved from a DB table and move its values to selected table in a datawarehouse
 
 Class Name: XML_Query_Helper
 Functions:
