@@ -16,7 +16,7 @@ Functions:
       6) Leaf_node: If XML has string series, you need to set leaf_node True. Default: False
       7) Leaf_num: How many of these string series will be joint. Default: 0
       8) Special_col: For any column that you do not want it to be depend on leaf_num.
-   4) XML_Query(id,...): It basically converts given lists to SQL command.
+   4) XML_Query(id,...): It basically converts given lists to INSERT SQL command.
      Parameters:
       1) Db_id: Source DB's ID.
       2) Label
