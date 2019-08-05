@@ -3,7 +3,11 @@ Description: Python script to parse an xml file which retrieved from a DB table 
 
 Class Name: XML_Query_Helper
 Functions:
-  1) __init__(path): Create an Elemantary Tree Root by any path or xml script directly
+  1) __init__(path,...): Create an Elemantary Tree Root by any path or xml script directly
+     Parameters:
+      1) Depth_key: If there is key word specified, you can choose how deep parser search for columns. Default: 0
+      2) Key_word: Parser use the column by given key_word as base point. Then you can go deeper by using depth_key.
+         Default: "NO_REQUIRED_KEY_WORD"
   2) columns(): Returns columns of given xml
   3) XML2List(...): Creates two lists (Label Set, Values Set). One stores labels of attributes, other one stores values.
      Parameters:
