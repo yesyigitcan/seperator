@@ -8,7 +8,7 @@ Functions:
       1) Depth_key: If there is key word specified, you can choose how deep parser search for columns. Default: 0
       2) Key_word: Parser use the column by given key_word as base point. Then you can go deeper by using depth_key.
          Default: "NO_REQUIRED_KEY_WORD"
-  2) columns(): Returns columns of given xml
+  2) columns(): Returns columns of current position in xml file. Youı can use this function to check where parser currently is.
   3) XML2List(...): Creates two lists (Label Set, Values Set). One stores labels of attributes, other one stores values.
      Parameters:
       1) Column Name: Only selected column of xml is joint into lists.
