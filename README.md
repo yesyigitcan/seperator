@@ -16,10 +16,16 @@ Functions:
       6) Leaf_node: If XML has string series, you need to set leaf_node True. Default: False
       7) Leaf_num: How many of these string series will be joint. Default: 0
       8) Special_col: For any column that you do not want it to be depend on leaf_num.
+      9) All_upper: Convert all label names in XML file to uppercase. Default: False
+      10) Directly_series: Get labels and names directly from data frame series. Default: None
+      11) Name_exchange: If there is difference between source column name and target column name, use this property as [[before,after],                 [before2,after2]]. Default: None
    4) XML_Query(id,...): It basically converts given lists to INSERT SQL command.
      Parameters:
       1) Db_id: Source DB's ID.
       2) Label
       3) Values
       4) Target_table: Target table of DWH.
+      5) Db_id_name: Change ID attribute's name in target table. Default: "ID"
+      6) Is_there_id: If it is 0, it means there is no any ID column in target table. So parser do not show ID numbers in query command.
+         Default: 1
         
