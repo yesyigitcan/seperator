@@ -43,7 +43,7 @@ class XML_Query_Helper:
             temp.append(i.tag)
         return temp
         
-    def XML2List(self,column_name,special_key = "NO_REQUIRED_SPECIAL_KEY",extra_label = [],extra_values = [],target_columns = "NO_REQUIRED_TARGET_COLUMNS",leaf_node = False,leaf_num = 0,special_col = [],all_upper = False):
+    def XML2List(self,column_name,special_key = "NO_REQUIRED_SPECIAL_KEY",extra_label = [],extra_values = [],target_columns = "NO_REQUIRED_TARGET_COLUMNS",leaf_node = False,leaf_num = 0,special_col = [],all_upper = False,directly_series = None,name_exchange = None):
         
         len_label = len(extra_label)
         len_values = len(extra_values)
@@ -199,10 +199,51 @@ class XML_Query_Helper:
             if(extra_label[i] in target_columns):
                 self.label_set.append(extra_label[i])
                 self.values_set.append(extra_values[i])
+                
+        
+                
+        if(directly_series is not None):
+            if(name_exchange is not None):
+                exchange_first = []
+                exchange_last = []
+                len_exchange = len(name_exchange)
+                for i in range(len_exchange):
+                    exchange_first.append(name_exchange[i][0])
+                    exchange_last.append(name_exchange[i][1])
+                
+            series_columns = list(directly_series.index)
+            series_values = list(directly_series)
+            len_series = len(series_columns)
+            for i in range(len_series):
+                if(name_exchange is not None):
+                    new_label = series_columns[i]
+                    if(new_label in exchange_first):
+                        new_label = exchange_last[exchange_first.index(new_label)]
+                        if(target_columns != "NO_REQUIRED_TARGET_COLUMNS"):
+                            if(new_label in target_columns and new_label not in self.label_set):
+                                self.label_set.append(new_label)
+                                self.values_set.append(series_values[i])
+                        else:
+                            if(new_label not in self.label_set):
+                                self.label_set.append(new_label)
+                                self.values_set.append(series_values[i])
+                    else:
+                        if(target_columns != "NO_REQUIRED_TARGET_COLUMNS"):
+                            if(new_label in target_columns and new_label not in self.label_set):
+                                self.label_set.append(new_label)
+                                self.values_set.append(series_values[i])
+                else:
+                    new_label = series_columns[i]
+                    if(target_columns != "NO_REQUIRED_TARGET_COLUMNS"):
+                        if(new_label in target_columns and new_label not in self.label_set):
+                            self.label_set.append(exchange_last[exchange_first.index(new_label)])
+                            self.values_set.append(series_values[i])
         return self.label_set,self.values_set
         
         
     def XML_Query(self,db_id,label,values,target_table,db_id_name = "ID",is_there_id = 1):
+        
+        
         list_len = len(label)
         if(list_len < 1):
             print("**Empty List**")
@@ -210,15 +251,14 @@ class XML_Query_Helper:
         
         query = "INSERT INTO " + target_table + "\n("
         
-        if(is_there_id):
+        if(is_there_id and db_id_name not in label): ## Editted 5 AGU 11:37
             query += db_id_name + ","
             
         for i in range(0,list_len):
             query += str(label[i]) + ","
         query = query[:-1]
         query += ") \nVALUES \n("
-        
-        if(is_there_id):
+        if(is_there_id and db_id_name not in label): ## Editted 5 AGU 11:37
             query += str(db_id) + ","
             
         for i in range(0,list_len):
